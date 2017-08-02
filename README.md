@@ -4,6 +4,7 @@ Auto input complete plugin with jQuery.
 ### Install
 jQuery and jQuery.textchange is required, so include it first.
 Include the script in your HTML file:
+
 	<script src="../auto_inputbox.js"></script>
 
 ### Usage
