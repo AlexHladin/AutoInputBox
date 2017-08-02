@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Runtime loading example</title>
+
+	<style>
+		.autoInput-content {
+		    width: 85%;
+		    height: 200px;
+		    border: 3px solid #c5c5c5;
+		    display: none;
+		    position: absolute;
+		}
+		.autoInput-content ul {
+		    list-style-type: none;
+		    margin: 0;
+		    padding: 0;
+		    width: 100%;
+		    height: 200px;
+		    overflow: auto;
+		}
+		.autoInput-content li {
+		   margin:0;
+		   padding:0;
+		}
+		.autoInput-content li span {
+		   display:block;
+		   width:auto;
+		   padding:5px;
+		   color:white;
+		}
+		.autoInput-content li span : hover{
+		   background-color:aqua;
+		   color:navy;
+		}
+		.loading {
+		    visibility: hidden;
+		    z-index: 14;
+		    margin-left: -26px;
+		    color: black;
+		}		
+	</style>
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+	
+<form id="article-title" method="GET">
+	<div>
+		Name <input type="text" id="user-input" name="name">
+	</div>
+</form>
+
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.textchange/0.1/jquery.textchange.min.js"></script>
+<script src="../auto_inputbox.js"></script>
+<script>
+	$(document).ready(function() {
+
+		$('#user-input').autoInput({
+			url: 'https://jsonplaceholder.typicode.com/users',
+			formatElement: function(el) {
+				return el.name;
+			}
+		});
+
+	});
+</script>
+</body>
+</html>
