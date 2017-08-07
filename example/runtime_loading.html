@@ -60,6 +60,8 @@
 
 		$('#user-input').autoInput({
 			url: 'https://jsonplaceholder.typicode.com/users',
+			closeIcon: 'fa-asterisk',
+			loadingIcon: 'fa-magic',
 			formatElement: function(el) {
 				return el.name;
 			}

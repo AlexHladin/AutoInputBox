@@ -4,6 +4,8 @@
         init:function(options) {
             options=$.extend({
       	        className: 'autoInput',
+                closeIcon: 'fa-times-circle',
+                loadingIcon: 'fa-spinner fa-pulse',
                 formatElement: function(el) {
                     return JSON.stringify(el).substring(20);
                 },
@@ -14,16 +16,16 @@
                 }
    	        }, options || {});
 
-   	        return this.each(function(){
+            return this.each(function(){
                 $.data(this, 'myautoInput', options);
 
-                $(this).after('<div class="' + options.className + '-content"><ul></ul></div><i class="loading fa fa-spinner fa-pulse fa-lg" aria-hidden="true"></i>');
+                $(this).after('<div class="' + options.className + '-content"><ul></ul></div><i class="loading fa ' + options.loadingIcon + ' fa-lg" aria-hidden="true"></i>');
 
                 // if input not empty show icon to delete text in input
                 if ($(this).val()) {
                     $(this).parent().find('i')
-                        .removeClass('fa-spinner fa-pulse')
-                        .addClass('fa-times-circle')
+                        .removeClass(options.loadingIcon)
+                        .addClass(options.closeIcon)
                         .css('visibility', 'visible');
                 } 
 
@@ -71,15 +73,15 @@
                 if ($(this).parent().find('i').css('visibility') == 'hidden')
                     $(this).parent().find('i').css('visibility', 'visible');
 
-                if ($(this).parent().find('i').hasClass('fa-times-circle')) {
-                    $(this).parent().find('i').removeClass('fa-times-circle');
-                    $(this).parent().find('i').addClass('fa-spinner fa-pulse');
+                if ($(this).parent().find('i').hasClass(options.closeIcon)) {
+                    $(this).parent().find('i').removeClass(options.closeIcon);
+                    $(this).parent().find('i').addClass(options.loadingIcon);
                 }
               
                 $.ajax({
                     method: 'GET',
                     url: options.url,
-                    data: {'route': 'catalog/users/api', 'query': $(this).val()},
+                    data: { 'route': 'catalog/users/api', 'query': $(this).val() },
                     dataType: 'json',                
                     success: function(data) {                        
                         $(autoInputElem).next().find('ul').empty();
@@ -98,8 +100,8 @@
                             }
                         });
 
-                        $(autoInputElem).parent().find('i').removeClass('fa-spinner fa-pulse');
-                        $(autoInputElem).parent().find('i').addClass('fa-times-circle');
+                        $(autoInputElem).parent().find('i').removeClass(options.loadingIcon);
+                        $(autoInputElem).parent().find('i').addClass(options.closeIcon);
 
                         methods.show.apply(autoInputElem);
 		                },
@@ -108,12 +110,12 @@
                         $(autoInputElem).next().find('ul').empty();
                         $(autoInputElem).next().find('ul').append('<div class="text-center">Nothing found</div>');
                         
-                        $(autoInputElem).parent().find('i').removeClass('fa-spinner fa-pulse');
-                        $(autoInputElem).parent().find('i').addClass('fa-times-circle');
+                        $(autoInputElem).parent().find('i').removeClass(options.loadingIcon);
+                        $(autoInputElem).parent().find('i').addClass(options.closeIcon);
           		      }
-   	          });
-	          });
-      }
+   	            });
+	        });
+          }
     };
 
 	  $.fn.autoInput=function(method){
