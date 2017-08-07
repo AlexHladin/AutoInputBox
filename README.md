@@ -18,6 +18,7 @@ Where 'options' is an optional parameter.
 
 ### Options
 The default `options` are:
+
 	{
 		className: 'autoInput',
 		closeIcon: 'fa-times-circle',
