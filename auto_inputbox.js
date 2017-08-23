@@ -19,7 +19,10 @@
                 onSubmit: function(event, value) {
                 },
                 getRequestPath(input) {
-                    return '/' + input;
+                    return input;
+                },
+                getRequestParams: function() {
+                    return {};
                 }
    	        }, options || {});
 
@@ -33,11 +36,11 @@
                     methods.hideIcon.apply($(this));
                 } 
 
-                var parentRect = $(this).position();
-                                
+                var parentRect = $(this).position();                
+ 
                 $(this).parent().find('.' + options.className + '-content')
                     .css('width', $(this).innerWidth() + 'px') // set width of drop-down list equivalent to input with
-                    .css('top', parentRect.bottom + 'px')
+                    .css('top', parentRect.top + $(this).outerHeight() + 'px')
                     .css('left', parentRect.left + 'px'); // fix left position of drop-down list to input
 
                 // add event listener to empty icon
@@ -50,6 +53,7 @@
                     return false;  
                 }).bind('textchange', function() {
                     if (this.value) methods.load.apply($(this));
+                    else if (!this.value.length) methods.hide.apply($(this).parent().find('.' + options.className + '-content').parent());
                 });
 
                 $(this).parent().parent().submit(function(event) {
@@ -134,8 +138,8 @@
                               
                 $.ajax({
                     method: 'GET',
-                    url: options.url,
-                    data: options.getRequestPath($(this).val()),
+                    url: options.url + options.getRequestPath($(this).val()),
+                    data: options.getRequestParams(),
                     dataType: 'json',                
                     success: function(data) {                        
                         $(autoInputElem).next().find('ul').empty();
