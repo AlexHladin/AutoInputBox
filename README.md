@@ -20,9 +20,11 @@ Where 'options' is an optional parameter.
 The default `options` are:
 
 	{
+		icon: 'myautoInputIcon',
 		className: 'autoInput',
 		closeIcon: 'fa-times-circle',
 		loadingIcon: 'fa-spinner fa-pulse',
+		nothingFoundMessage: 'Nothing found',
 		formatElement: function(el) {
 			return JSON.stringify(el).substring(20);
 		},
@@ -30,13 +32,21 @@ The default `options` are:
 			return $(el).html();
 		},
 		slideDownComplete: function() {
+		},
+		onSubmit: function(event, value) {
+		},
+		getRequestPath(input) {
+			return '/' + input;
 		}
-	}
+   	}
 		
 Where
 - `className` - name of css classes prefix
 - `closeIcon` - name of css style with icon for erase input box
 - `loadingIcon` - name of css style with icon for loading data
+- `nothingFoundMessage` - message for users when elements not found
 - `formatElement` - function that map elements
 - `onItemSelected` - function that return value that will be stored in input tag and submited
 - `slideDownComplete` - function for actions on `slide complete`
+- `onSubmit` - event of form submit
+- `getRequestPath` - methods for forming params of request
