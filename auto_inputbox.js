@@ -17,7 +17,9 @@
                 slideDownComplete: function() {
                 },
                 onSubmit: function(event, value) {
-
+                },
+                getRequestPath(input) {
+                    return '/' + input;
                 }
    	        }, options || {});
 
@@ -132,7 +134,8 @@
                               
                 $.ajax({
                     method: 'GET',
-                    url: options.url + $(this).val(),
+                    url: options.url,
+                    data: options.getRequestPath($(this).val()),
                     dataType: 'json',                
                     success: function(data) {                        
                         $(autoInputElem).next().find('ul').empty();
@@ -154,11 +157,9 @@
                                 }
                             });
 
-                            // methods.hideLoading.apply(autoInputElem);
                             methods.show.apply(autoInputElem);
                         } else {
-                        	// methods.hideLoading.apply(autoInputElem);
-                            methods.hide.apply($('.' + options.className + '-content').parent());
+                        	methods.hide.apply($('.' + options.className + '-content').parent());
                         }
 
                         methods.showCloseIcon.apply(autoInputElem);
