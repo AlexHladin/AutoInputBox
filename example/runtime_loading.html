@@ -48,7 +48,7 @@
 	
 <form id="article-title" method="GET">
 	<div>
-		Name <input type="text" id="user-input" name="name">
+		Name <input type="text" id="user-input" name="name" autocomplete="off">
 	</div>
 </form>
 
@@ -64,6 +64,9 @@
 			loadingIcon: 'fa-magic',
 			formatElement: function(el) {
 				return el.name;
+			},
+			getRequestPath: function(input) {
+				return { 'route': 'catalog/users/api', 'query': input };
 			}
 		});
 
