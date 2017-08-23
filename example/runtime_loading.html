@@ -6,7 +6,6 @@
 
 	<style>
 		.autoInput-content {
-		    width: 85%;
 		    height: 200px;
 		    border: 1px solid #c5c5c5;
 		    display: none;
@@ -59,13 +58,13 @@
 	$(document).ready(function() {
 
 		$('#user-input').autoInput({
-			url: 'https://jsonplaceholder.typicode.com/users',
+			url: 'https://jsonplaceholder.typicode.com/users?',
 			closeIcon: 'fa-asterisk',
 			loadingIcon: 'fa-magic',
 			formatElement: function(el) {
 				return el.name;
 			},
-			getRequestPath: function(input) {
+			getRequestParams: function(input) {
 				return { 'route': 'catalog/users/api', 'query': input };
 			}
 		});
